@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swadeshi - Premium Indian Apparel</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Swiper CSS for Carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.css"/>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .top-header {
+            background-color: #f8f5f1;
+        }
+        
+        .announcement-bar {
+            background-color: #4f3e2d;
+            color: white;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:hover::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #d4a373;
+            transition: width 0.3s;
+        }
+        
+        .mega-menu {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            width: 100%;
+            background: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+        
+        .nav-item:hover .mega-menu {
+            display: block;
+        }
+        
+        .swiper-container {
+            width: 100%;
+            height: 70vh;
+        }
+        
+        .hero-slide {
+            position: relative;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .slide-content {
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+            max-width: 600px;
+        }
+        
+        .featured-product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .add-to-cart {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .featured-product-card:hover .add-to-cart {
+            opacity: 1;
+        }
+        
+        /* Custom category backgrounds */
+        .category-men {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/api/placeholder/400/320') center/cover no-repeat;
+        }
+        
+        .category-women {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/api/placeholder/400/320') center/cover no-repeat;
+        }
+        
+        .category-kids {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/api/placeholder/400/320') center/cover no-repeat;
+        }
+        
+        .category-home {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/api/placeholder/400/320') center/cover no-repeat;
+        }
+        
+        .newsletter-bg {
+            background-color: #fbf7f4;
+        }
+        
+        .floating-cart {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 50;
+        }
+        
+        /* Mobile menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background-color: white;
+            z-index: 1000;
+            transition: left 0.3s ease;
+            overflow-y: auto;
+        }
+        
+        .mobile-menu.active {
+            left: 0;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+        
+        /* Footer styles */
+        .footer {
+            background-color: #292524;
+            color: #e7e5e4;
+        }
+        
+        .footer-link:hover {
+            color: #d4a373;
+            text-decoration: underline;
+        }
+        
+        /* Custom Animation for Flash Sale */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Store locator map */
+        .store-map {
+            height: 200px;
+            background-color: #e5e7eb;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+    <!-- Announcement Bar -->
+    <div class="announcement-bar py-2">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center text-sm">
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="hover:text-gray-200">Find a Store</a>
+                    <a href="#" class="hover:text-gray-200">Track Order</a>
+                </div>
+                <div class="hidden md:block">
+                    <p>Free Shipping on Orders Over ₹1,999</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="hover:text-gray-200">Customer Care</a>
+                    <a href="#" class="hover:text-gray-200">Sign In / Register</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Header -->
+    <header class="top-header border-b border-gray-200 sticky top-0 bg-white z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Mobile Menu Toggle -->
+                <div class="block lg:hidden">
+                    <button id="mobile-menu-toggle" class="text-gray-600 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+                
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="/" class="flex items-center">
+                        <span class="text-2xl font-bold text-gray-800">
+                            स्वदेशी
+                            <span class="block text-sm font-normal text-gray-500">Swadeshi Khadi Traders</span>
+                        </span>
+                    </a>
+                </div>
+                
+                <!-- Main Navigation - Desktop -->
+                <nav class="hidden lg:flex items-center">
+                    <ul class="flex space-x-8">
+                        <li class="nav-item relative group">
+                            <a href="#" class="nav-link font-medium hover:text-amber-700">Men</a>
+                            <div class="mega-menu py-6">
+                                <div class="container mx-auto px-4">
+                                    <div class="grid grid-cols-4 gap-6">
+                                        <div>
+                                            <h3 class="font-bold text-gray-800 mb-3">Tops</h3>
+                                            <ul class="space-y-2">
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">T-Shirts</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Kurtas</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Shirts</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Jackets</a></li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-800 mb-3">Bottoms</h3>
+                                            <ul class="space-y-2">
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Pants</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Pajamas</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Shorts</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Dhotis</a></li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-800 mb-3">Seasonal</h3>
+                                            <ul class="space-y-2">
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Summer Collection</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Winter Wear</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Festive Collection</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Wedding Collection</a></li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <a href="#" class="block relative h-48 rounded overflow-hidden">
+                                                <img alt="Men's Collection" class="object-cover object-center w-full h-full block" src="/api/placeholder/400/320">
+                                                <div class="absolute inset-0 bg-black bg-opacity-25 flex items-center justify-center">
+                                                    <span class="text-white text-lg font-medium">New Arrivals</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item relative group">
+                            <a href="#" class="nav-link font-medium hover:text-amber-700">Women</a>
+                            <div class="mega-menu py-6">
+                                <div class="container mx-auto px-4">
+                                    <div class="grid grid-cols-4 gap-6">
+                                        <div>
+                                            <h3 class="font-bold text-gray-800 mb-3">Tops</h3>
+                                            <ul class="space-y-2">
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Kurtas</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Kurtis</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Sarees</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Blouses</a></li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-800 mb-3">Bottoms</h3>
+                                            <ul class="space-y-2">
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Pants</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Palazzos</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Skirts</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Leggings</a></li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-800 mb-3">Seasonal</h3>
+                                            <ul class="space-y-2">
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Summer Collection</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Winter Wear</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Festive Collection</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Wedding Collection</a></li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <a href="#" class="block relative h-48 rounded overflow-hidden">
+                                                <img alt="Women's Collection" class="object-cover object-center w-full h-full block" src="/api/placeholder/400/320">
+                                                <div class="absolute inset-0 bg-black bg-opacity-25 flex items-center justify-center">
+                                                    <span class="text-white text-lg font-medium">New Arrivals</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item relative group">
+                            <a href="#" class="nav-link font-medium hover:text-amber-700">Kids</a>
+                            <div class="mega-menu py-6">
+                                <div class="container mx-auto px-4">
+                                    <div class="grid grid-cols-4 gap-6">
+                                        <div>
+                                            <h3 class="font-bold text-gray-800 mb-3">Boys</h3>
+                                            <ul class="space-y-2">
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">T-Shirts</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Kurtas</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Pants</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Festive Wear</a></li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-800 mb-3">Girls</h3>
+                                            <ul class="space-y-2">
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Dresses</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Kurtis</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Leggings</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Festive Wear</a></li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-800 mb-3">Seasonal</h3>
+                                            <ul class="space-y-2">
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Summer Collection</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Winter Wear</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Back to School</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Party Wear</a></li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <a href="#" class="block relative h-48 rounded overflow-hidden">
+                                                <img alt="Kids Collection" class="object-cover object-center w-full h-full block" src="/api/placeholder/400/320">
+                                                <div class="absolute inset-0 bg-black bg-opacity-25 flex items-center justify-center">
+                                                    <span class="text-white text-lg font-medium">New Arrivals</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item relative group">
+                            <a href="#" class="nav-link font-medium hover:text-amber-700">Home Decor</a>
+                            <div class="mega-menu py-6">
+                                <div class="container mx-auto px-4">
+                                    <div class="grid grid-cols-4 gap-6">
+                                        <div>
+                                            <h3 class="font-bold text-gray-800 mb-3">Bedding</h3>
+                                            <ul class="space-y-2">
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Bed Covers</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Quilts</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Pillows</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Cushions</a></li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-800 mb-3">Kitchen & Dining</h3>
+                                            <ul class="space-y-2">
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Table Linens</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Kitchen Towels</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Aprons</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Pottery</a></li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-800 mb-3">Decor</h3>
+                                            <ul class="space-y-2">
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Wall Hangings</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Rugs</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Curtains</a></li>
+                                                <li><a href="#" class="text-gray-600 hover:text-amber-700">Lamps</a></li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <a href="#" class="block relative h-48 rounded overflow-hidden">
+                                                <img alt="Decor Collection" class="object-cover object-center w-full h-full block" src="/api/placeholder/400/320">
+                                                <div class="absolute inset-0 bg-black bg-opacity-25 flex items-center justify-center">
+                                                    <span class="text-white text-lg font-medium">New Arrivals</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link font-medium hover:text-amber-700">Sale</a>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <!-- Search, Account, Cart -->
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:block relative">
+                        <input type="text" placeholder="Search products..." class="bg-gray-100 rounded-full py-2 px-4 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-amber-600 focus:bg-white w-64">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                    <button class="text-gray-600 hover:text-amber-700 md:hidden">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+                    <button class="text-gray-600 hover:text-amber-700">
+                        <i class="fas fa-user text-xl"></i>
+                    </button>
+                    <button class="text-gray-600 hover:text-amber-700 relative">
+                        <i class="fas fa-shopping-bag text-xl"></i>
+                        <span class="absolute -top-1 -right-1 bg-amber-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="p-4 border-b border-gray-200">
+            <div class="flex justify-between items-center">
+                <span class="text-xl font-bold text-gray-800">स्वदेशी</span>
+                <button id="mobile-menu-close" class="text-gray-600 focus:outline-none">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div class="p-4">
+            <div class="mb-4">
+                <div class="relative">
+                    <input type="text" placeholder="Search products..." class="bg-gray-100 rounded-full py-2 px-4 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-amber-600 focus:bg-white w-full">
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+            </div>
+            <nav>
+                <ul class="space-y-4">
+                    <li>
+                        <div class="flex justify-between items-center py-2">
+                            <a href="#" class="text-gray-800 font-medium">Men</a>
+                            <button class="text-gray-600 focus:outline-none mobile-submenu-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div class="mobile-submenu hidden pl-4 pb-2">
+                            <ul class="space-y-2">
+                                <li><a href="#" class="text-gray-600">Tops</a></li>
+                                <li><a href="#" class="text-gray-600">Bottoms</a></li>
+                                <li><a href="#" class="text-gray-600">Summer Collection</a></li>
+                                <li><a href="#" class="text-gray-600">Winter Wear</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex justify-between items-center py-2">
+                            <a href="#" class="text-gray-800 font-medium">Women</a>
+                            <button class="text-gray-600 focus:outline-none mobile-submenu-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div class="mobile-submenu hidden pl-4 pb-2">
+                            <ul class="space-y-2">
+                                <li><a href="#" class="text-gray-600">Tops</a></li>
+                                <li><a href="#" class="text-gray-600">Bottoms</a></li>
+                                <li><a href="#" class="text-gray-600">Summer Collection</a></li>
+                                <li><a href="#" class="text-gray-600">Winter Wear</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex justify-between items-center py-2">
+                            <a href="#" class="text-gray-800 font-medium">Kids</a>
+                            <button class="text-gray-600 focus:outline-none mobile-submenu-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div class="mobile-submenu hidden pl-4 pb-2">
+                            <ul class="space-y-2">
+                                <li><a href="#" class="text-gray-600">Boys</a></li>
+                                <li><a href="#" class="text-gray-600">Girls</a></li>
+                                <li><a href="#" class="text-gray-600">Summer Collection</a></li>
+                                <li><a href="#" class="text-gray-600">Winter Wear</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex justify-between items-center py-2">
+                            <a href="#" class="text-gray-800 font-medium">Home Decor</a>
+                            <button class="text-gray-600 focus:outline-none mobile-submenu-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div class="mobile-submenu hidden pl-4 pb-2">
+                            <ul class="space-y-2">
+                                <li><a href="#" class="text-gray-600">Bedding</a></li>
+                                <li><a href="#" class="text-gray-600">Kitchen & Dining</a></li>
+                                <li><a href="#" class="text-gray-600">Decor</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="text-gray-800 font-medium py-2 block">Sale</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="border-t border-gray-200 p-4">
+            <ul class="space-y-3">
+                <li><a href="#" class="text-gray-600"><i class="fas fa-user mr-2"></i> My Account</a></li>
+                <li><a href="#" class="text-gray-600"><i class="fas fa-box mr-2"></i> My Orders</a></li>
+                <li><a href="#" class="text-gray-600"><i class="fas fa-heart mr-2"></i> Wishlist</a></li>
+                <li><a href="#" class="text-gray-600"><i class="fas fa-map-marker-alt mr-2"></i> Find a Store</a></li>
+                <li><a href="#" class="text-gray-600"><i class="fas fa-headset mr-2"></i> Customer Care</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Hero Carousel -->
+    <div class="swiper-container" id="heroCarousel">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="hero-slide" style="background-image: url('/api/placeholder/1600/900')">
+                    <div class="slide-content text-white">
+                        <h2 class="text-4xl md:text-5xl font-bold mb-2">Embrace Tradition</h2>
+                        <p class="text-xl mb-6">Discover authentic Swadeshi khadi & handloom collections</p>
+                        <a href="#" class="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-full font-medium inline-block">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="hero-slide" style="background-image: url('/api/placeholder/1600/900')">
+                    <div class="slide-content text-white">
+                        <h2 class="text-4xl md:text-5xl font-bold mb-2">Summer Collection</h2>
+                        <p class="text-xl mb-6">Stay cool with our breathable cotton fabrics</p>
+                        <a href="#" class="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-full font-medium inline-block">Explore Collection</a>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="hero-slide" style="background-image: url('/api/placeholder/1600/900')">
+                    <div class="slide-content text-white">
+                        <h2 class="text-4xl md:text-5xl font-bold mb-2">Handcrafted Decor</h2>
+                        <p class="text-xl mb-6">Transform your home with handmade elegance</p>
+                        <a href="#" class="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-full font-medium inline-block">Shop Home Decor</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev text-white"></div>
+        <div class="swiper-button-next text-white"></div>
+    </div>
+    
+    <!-- USP Section -->
+    <section class="py-10 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-truck text-3xl text-amber-600"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold">Free Shipping</h3>
+                        <p class="text-sm text-gray-600">On orders over ₹1,999</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-exchange-alt text-3xl text-amber-600"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold">Easy Returns</h3>
+                        <p class="text-sm text-gray-600">30-day return policy</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-shield-alt text-3xl text-amber-600"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold">Secure Payments</h3>
+                        <p class="text-sm text-gray-600">100% secure checkout</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-tshirt text-3xl text-amber-600"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold">Authentic Handloom</h3>
+                        <p class="text-sm text-gray-600">Empowering local artisans</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Flash Sale -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold">Flash Sale</h2>
+                <div class="flex items-center space-x-2">
+                    <span class="text-gray-600">Ends in:</span>
+                    <div class="bg-gray-800 text-white py-1 px-2 rounded">48h</div>
+                    <div class="bg-gray-800 text-white py-1 px-2 rounded">12m</div>
+                    <div class="bg-gray-800 text-white py-1 px-2 rounded">33s</div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Sale Product 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 featured-product-card">
+                    <div class="relative">
+                        <img src="/api/placeholder/400/500" alt="Product Image" class="w-full h-64 object-cover">
+                        <div class="absolute top-0 left-0 bg-red-600 text-white text-xs font-bold px-3 py-1">-40%</div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2 text-center add-to-cart">
+                            <button class="bg-amber-600 hover:bg-amber-700 text-white py-1 px-4 rounded-full text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-1">Women's Chanderi Silk Saree</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-amber-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">(127)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-red-600 font-bold">₹1,499</span>
+                            <span class="text-gray-400 line-through ml-2 text-sm">₹2,499</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sale Product 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 featured-product-card">
+                    <div class="relative">
+                        <img src="/api/placeholder/400/500" alt="Product Image" class="w-full h-64 object-cover">
+                        <div class="absolute top-0 left-0 bg-red-600 text-white text-xs font-bold px-3 py-1">-30%</div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2 text-center add-to-cart">
+                            <button class="bg-amber-600 hover:bg-amber-700 text-white py-1 px-4 rounded-full text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-1">Men's Khadi Cotton Kurta</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-amber-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">(89)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-red-600 font-bold">₹999</span>
+                            <span class="text-gray-400 line-through ml-2 text-sm">₹1,399</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sale Product 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 featured-product-card">
+                    <div class="relative">
+                        <img src="/api/placeholder/400/500" alt="Product Image" class="w-full h-64 object-cover">
+                        <div class="absolute top-0 left-0 bg-red-600 text-white text-xs font-bold px-3 py-1">-25%</div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2 text-center add-to-cart">
+                            <button class="bg-amber-600 hover:bg-amber-700 text-white py-1 px-4 rounded-full text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-1">Hand Block Print Bed Cover</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-amber-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">(64)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-red-600 font-bold">₹1,799</span>
+                            <span class="text-gray-400 line-through ml-2 text-sm">₹2,399</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sale Product 4 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 featured-product-card">
+                    <div class="relative">
+                        <img src="/api/placeholder/400/500" alt="Product Image" class="w-full h-64 object-cover">
+                        <div class="absolute top-0 left-0 bg-red-600 text-white text-xs font-bold px-3 py-1">-50%</div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2 text-center add-to-cart">
+                            <button class="bg-amber-600 hover:bg-amber-700 text-white py-1 px-4 rounded-full text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-1">Kids' Festive Kurta Set</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-amber-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">(42)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-red-600 font-bold">₹799</span>
+                            <span class="text-gray-400 line-through ml-2 text-sm">₹1,599</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <a href="#" class="inline-block border-2 border-amber-600 text-amber-600 hover:bg-amber-600 hover:text-white px-6 py-2 rounded-full font-medium transition-colors duration-300">View All Sale Items</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Category Blocks -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Shop By Category</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Men's Category -->
+                <div class="category-men h-60 rounded-lg overflow-hidden relative">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center text-white">
+                        <h3 class="text-2xl font-bold mb-2">Men</h3>
+                        <a href="#" class="border-2 border-white hover:bg-white hover:text-gray-800 px-4 py-1 rounded-full text-sm transition-colors duration-300">Shop Now</a>
+                    </div>
+                </div>
+                
+                <!-- Women's Category -->
+                <div class="category-women h-60 rounded-lg overflow-hidden relative">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center text-white">
+                        <h3 class="text-2xl font-bold mb-2">Women</h3>
+                        <a href="#" class="border-2 border-white hover:bg-white hover:text-gray-800 px-4 py-1 rounded-full text-sm transition-colors duration-300">Shop Now</a>
+                    </div>
+                </div>
+                
+                <!-- Kids' Category -->
+                <div class="category-kids h-60 rounded-lg overflow-hidden relative">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center text-white">
+                        <h3 class="text-2xl font-bold mb-2">Kids</h3>
+                        <a href="#" class="border-2 border-white hover:bg-white hover:text-gray-800 px-4 py-1 rounded-full text-sm transition-colors duration-300">Shop Now</a>
+                    </div>
+                </div>
+                
+                <!-- Home Category -->
+                <div class="category-home h-60 rounded-lg overflow-hidden relative">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center text-white">
+                        <h3 class="text-2xl font-bold mb-2">Home Decor</h3>
+                        <a href="#" class="border-2 border-white hover:bg-white hover:text-gray-800 px-4 py-1 rounded-full text-sm transition-colors duration-300">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Products -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold">New Arrivals</h2>
+                <div class="hidden md:flex space-x-2">
+                    <button class="featured-nav border border-gray-300 rounded-full w-10 h-10 flex items-center justify-center hover:bg-amber-600 hover:text-white hover:border-amber-600">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <button class="featured-nav border border-gray-300 rounded-full w-10 h-10 flex items-center justify-center hover:bg-amber-600 hover:text-white hover:border-amber-600">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Product 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 featured-product-card">
+                    <div class="relative">
+                        <img src="/api/placeholder/400/500" alt="Product Image" class="w-full h-64 object-cover">
+                        <div class="absolute top-0 left-0 bg-amber-600 text-white text-xs font-bold px-3 py-1">New</div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2 text-center add-to-cart">
+                            <button class="bg-amber-600 hover:bg-amber-700 text-white py-1 px-4 rounded-full text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-1">Handwoven Linen Saree</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-amber-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">(23)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="font-bold">₹2,499</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 featured-product-card">
+                    <div class="relative">
+                        <img src="/api/placeholder/400/500" alt="Product Image" class="w-full h-64 object-cover">
+                        <div class="absolute top-0 left-0 bg-amber-600 text-white text-xs font-bold px-3 py-1">New</div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2 text-center add-to-cart">
+                            <button class="bg-amber-600 hover:bg-amber-700 text-white py-1 px-4 rounded-full text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-1">Men's Hand Block Print Shirt</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-amber-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">(15)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="font-bold">₹1,299</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 featured-product-card">
+                    <div class="relative">
+                        <img src="/api/placeholder/400/500" alt="Product Image" class="w-full h-64 object-cover">
+                        <div class="absolute top-0 left-0 bg-amber-600 text-white text-xs font-bold px-3 py-1">New</div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2 text-center add-to-cart">
+                            <button class="bg-amber-600 hover:bg-amber-700 text-white py-1 px-4 rounded-full text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-1">Hand Embroidered Cushion Cover</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-amber-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">(8)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="font-bold">₹899</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 featured-product-card">
+                    <div class="relative">
+                        <img src="/api/placeholder/400/500" alt="Product Image" class="w-full h-64 object-cover">
+                        <div class="absolute top-0 left-0 bg-amber-600 text-white text-xs font-bold px-3 py-1">New</div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2 text-center add-to-cart">
+                            <button class="bg-amber-600 hover:bg-amber-700 text-white py-1 px-4 rounded-full text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-1">Kids' Organic Cotton Dress</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-amber-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">(12)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="font-bold">₹1,099</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <a href="#" class="inline-block border-2 border-amber-600 text-amber-600 hover:bg-amber-600 hover:text-white px-6 py-2 rounded-full font-medium transition-colors duration-300">View All Products</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Banner Section -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="relative h-80 rounded-lg overflow-hidden">
+                    <img src="/api/placeholder/800/400" alt="Banner Image" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black bg-opacity-25 flex flex-col items-start justify-center p-8">
+                        <h3 class="text-white text-3xl font-bold mb-2">Festive Collection</h3>
+                        <p class="text-white mb-4">Celebrate traditions with our special festive range</p>
+                        <a href="#" class="bg-white text-gray-800 hover:bg-amber-600 hover:text-white px-6 py-2 rounded-full font-medium transition-colors duration-300">Shop Now</a>
+                    </div>
+                </div>
+                <div class="relative h-80 rounded-lg overflow-hidden">
+                    <img src="/api/placeholder/800/400" alt="Banner Image" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black bg-opacity-25 flex flex-col items-start justify-center p-8">
+                        <h3 class="text-white text-3xl font-bold mb-2">Khadi Essentials</h3>
+                        <p class="text-white mb-4">Premium handloom fabrics from local artisans</p>
+                        <a href="#" class="bg-white text-gray-800 hover:bg-amber-600 hover:text-white px-6 py-2 rounded-full font-medium transition-colors duration-300">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Store Locator -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Visit Our Stores</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Store 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="store-map rounded-t-lg">
+                        <!-- Map Placeholder -->
+                        <div class="h-full w-full flex items-center justify-center bg-gray-200">
+                            <i class="fas fa-map-marker-alt text-4xl text-amber-600"></i>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg">Marris Road Store</h3>
+                        <p class="text-gray-600 mb-2">123 Marris Road, Aligarh, Uttar Pradesh</p>
+                        <div class="flex items-center text-sm text-gray-500 mb-2">
+                            <i class="far fa-clock mr-2"></i>
+                            <span>10:00 AM - 8:00 PM</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-phone-alt mr-2"></i>
+                            <span>+91 98765 43210</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Store 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="store-map rounded-t-lg">
+                        <!-- Map Placeholder -->
+                        <div class="h-full w-full flex items-center justify-center bg-gray-200">
+                            <i class="fas fa-map-marker-alt text-4xl text-amber-600"></i>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg">Railway Road Store</h3>
+                        <p class="text-gray-600 mb-2">456 Railway Road, Aligarh, Uttar Pradesh</p>
+                        <div class="flex items-center text-sm text-gray-500 mb-2">
+                            <i class="far fa-clock mr-2"></i>
+                            <span>10:00 AM - 8:00 PM</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-phone-alt mr-2"></i>
+                            <span>+91 98765 43211</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Store 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="store-map rounded-t-lg">
+                        <!-- Map Placeholder -->
+                        <div class="h-full w-full flex items-center justify-center bg-gray-200">
+                            <i class="fas fa-map-marker-alt text-4xl text-amber-600"></i>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg">Hathras Store</h3>
+                        <p class="text-gray-600 mb-2">789 Main Road, Hathras, Uttar Pradesh</p>
+                        <div class="flex items-center text-sm text-gray-500 mb-2">
+                            <i class="far fa-clock mr-2"></i>
+                            <span>10:00 AM - 8:00 PM</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-phone-alt mr-2"></i>
+                            <span>+91 98765 43212</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+                <!-- Testimonial 1 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <p class="text-gray-600 mb-4">"Swadeshi's products are of amazing quality and the designs are beautiful. I'm a repeat customer for a reason!"</p>
+                    <div class="flex items-center space-x-4">
+                        <img src="/api/placeholder/60" alt="Customer" class="w-12 h-12 rounded-full">
+                        <div>
+                            <h4 class="font-semibold">Anjali Sharma</h4>
+                            <p class="text-sm text-gray-500">Delhi, India</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <p class="text-gray-600 mb-4">"Love the authentic handloom collection. It’s so good to see Indian tradition getting a modern touch."</p>
+                    <div class="flex items-center space-x-4">
+                        <img src="/api/placeholder/60" alt="Customer" class="w-12 h-12 rounded-full">
+                        <div>
+                            <h4 class="font-semibold">Ravi Verma</h4>
+                            <p class="text-sm text-gray-500">Mumbai, India</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <p class="text-gray-600 mb-4">"Great prices, fast delivery, and wonderful packaging. The kurtas are perfect for all occasions."</p>
+                    <div class="flex items-center space-x-4">
+                        <img src="/api/placeholder/60" alt="Customer" class="w-12 h-12 rounded-full">
+                        <div>
+                            <h4 class="font-semibold">Meera Joshi</h4>
+                            <p class="text-sm text-gray-500">Bangalore, India</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-lg font-bold mb-4">About Swadeshi</h4>
+                    <p class="text-sm text-gray-400">Promoting authentic Indian handlooms and supporting artisans across the country.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Customer Service</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="footer-link">Contact Us</a></li>
+                        <li><a href="#" class="footer-link">Returns</a></li>
+                        <li><a href="#" class="footer-link">Shipping</a></li>
+                        <li><a href="#" class="footer-link">FAQs</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Our Stores</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="footer-link">Aligarh</a></li>
+                        <li><a href="#" class="footer-link">Hathras</a></li>
+                        <li><a href="#" class="footer-link">Mathura</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Newsletter</h4>
+                    <form>
+                        <input type="email" placeholder="Enter your email" class="w-full px-4 py-2 rounded mb-2 text-gray-800">
+                        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white py-2 rounded">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="mt-12 text-center text-sm text-gray-500">
+                &copy; 2025 Swadeshi Khadi Traders. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('#heroCarousel', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            autoplay: { delay: 5000 },
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-toggle').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.add('active');
+            document.getElementById('overlay').classList.add('active');
+        });
+
+        document.getElementById('mobile-menu-close').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+        });
+
+        // Mobile submenu toggle
+        document.querySelectorAll('.mobile-submenu-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const submenu = button.parentElement.nextElementSibling;
+                submenu.classList.toggle('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
